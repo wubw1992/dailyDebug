@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+CURDIR=$(pwd)
+DIR=$(mktemp -d)
+pushd $DIR
+
+sudo cp -r /var/log ./log
+cp -r ~/.cache/deepin ./cache_deepin
+cp ~/.xsession-errors ./
+cp ~/.xsession-errors.old ./
+
+dpkg -l > ./version
+
+pacmd list-cards > pacmdinfo
+
+xrandr > xrandrinfo
+
+sudo tar -czf ~/Desktop/dde_log.tar.gz ./
+
+popd
+
+sudo rm $DIR -rf
+
